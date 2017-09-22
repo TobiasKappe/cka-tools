@@ -1,5 +1,7 @@
 # Tools for Concurrent Kleene Algebra
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.926652.svg)](https://doi.org/10.5281/zenodo.926652)
+
 _Requires Python 3.4 or newer._
 
 This repository contains a small Python library that supports manipulation of (and, to a limited degree, reasoning about) terms in _Concurrent Kleene Algebra_, a formalism that can be used to model concurrent program flow.
