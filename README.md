@@ -1,6 +1,6 @@
 # Tools for Concurrent Kleene Algebra
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.926652.svg)](https://doi.org/10.5281/zenodo.926652)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.926651.svg)](https://doi.org/10.5281/zenodo.926651)
 
 _Requires Python 3.4 or newer._
 
