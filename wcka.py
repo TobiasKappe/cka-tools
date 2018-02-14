@@ -474,6 +474,9 @@ class Star(ClosedTerm):
     def nontrivial_width(self):
         return self.beneath.width()
 
+    def star(self):
+        return self
+
     def __str__(self):
         return "%s*" % self.beneath.bracket(self)
 
