@@ -15,8 +15,10 @@ class Term(ABC):
             return self
         elif type(self) is Zero:
             return other
-        elif self == other:
+        elif other in self:
             return self
+        elif self in other:
+            return other
         else:
             return Choice(self, other)
 
@@ -119,6 +121,9 @@ class Term(ABC):
 
     def __hash__(self):
         return hash(str(self))
+
+    def __contains__(self, term):
+        return self == term
 
 
 class ClosedTerm(Term):
@@ -311,6 +316,9 @@ class Choice(BinaryTerm):
     def nullable(self):
         return self.left.nullable() or self.right.nullable()
 
+    def __contains__(self, term):
+        return self == term or term in self.left or term in self.right
+
 
 class Sequential(BinaryTerm):
     """
@@ -427,6 +435,13 @@ class Parallel(BinaryTerm):
     def nontrivial_width(self):
         return self.left.width() + self.right.width()
 
+    def __contains__(self, other):
+        if type(other) is Parallel:
+            return ((other.left in self.left and other.right in self.right) or
+                    (other.left in self.right and other.right in self.left))
+        else:
+            return super().__contains__(other)
+
 
 class Star(ClosedTerm):
     """
@@ -462,6 +477,13 @@ class Star(ClosedTerm):
     def __str__(self):
         return "%s*" % self.beneath.bracket(self)
 
+    def __contains__(self, other):
+        if type(other) is One:
+            return True
+        elif other in self.beneath:
+            return True
+        else:
+            return super().__contains__(other)
 
 class Variable(Term):
     """
