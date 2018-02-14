@@ -222,6 +222,16 @@ class One(ClosedTerm):
     Represents a one term.
     """
 
+    def __add__(self, other):
+        if type(other) is Sequential:
+            if type(other.left) is Star and other.left.beneath == other.right:
+                return other.left   # 1 + a*a
+            elif (type(other.right) is Star and
+                  other.right.beneath == other.left):
+                return other.right  # 1 + aa*
+
+        return super().__add__(other)
+
     def nontrivial_psplicings(self):
         return set()
 
@@ -326,6 +336,15 @@ class Sequential(BinaryTerm):
     """
 
     operator = ""
+
+    def __add__(self, other):
+        if type(other) is One:
+            if type(self.left) is Star and self.left.beneath == self.right:
+                return self.left   # a*a + 1
+            elif type(self.right) is Star and self.right.beneath == self.left:
+                return self.right  # aa* + 1
+
+        return super().__add__(other)
 
     def nontrivial_psplicings(self):
         return {
